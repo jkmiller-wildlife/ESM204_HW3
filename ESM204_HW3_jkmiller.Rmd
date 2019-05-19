@@ -1,0 +1,34 @@
+---
+title: "ESM 204 - Assignment 3"
+author: "Jamie Miller"
+date: "May 18, 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(tidyverse)
+```
+
+```{r}
+# Read in data
+whales <- read_csv("HW3Data.csv")
+```
+
+```{r}
+# Regression - linear probability model
+lm(vote ~ risk + bid + NEP + income + age, data = whales)
+
+# vote = 0.1196977 + 0.0007445(risk) - 0.0010699(bid) + 0.0158639(NEP) + 0.0088282(incomeone_percent) + 0.0027386(incomepoor) + 0.0074891(incomerich) + 0.0467922(incomevery_rich) + 0.0099816(agetofifty) - 0.0201190(agetoforty) - 0.0162261(agetosixty) + 0.0204401(agetothirty)
+
+```
+
+
+
+
+
+
+
+
+
