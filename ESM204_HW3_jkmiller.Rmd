@@ -131,6 +131,8 @@ prob_bid_3  <- (0.1196977 + 0.0007445*(60) - (0.714) + 0.0158639*(38) + 0.008828
 
 #prob_bid_3 = 78.2895597719414
 ```
+Respondent 1 is not willing to pay anything for the VSR program since their bid value is negative \$303. Respondent 2 is willing to pay \$56.56 for a VSR program that offers a 60% reduction in whlae strikes, and Respondent 3 is willing to pay \$78.29.
+
 
 
 4. Now repeat this process and estimate the mean WTP for a VSR program offering 60% risk reduction among Santa Barbara County households.
