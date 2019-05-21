@@ -30,6 +30,18 @@ vote_lm
 
 summary(vote_lm) # Not sure this is needed, but here it is.
 
+
+### Make a nice table
+# write formal model equation with table of results.
+# - risk, coefficient estimate, SE, p-value, or ***
+# round in display
+
+
+coeff <- vote_lm$coefficients
+coeff
+
+vote_lm$coefficients["risk"]
+
 ```
 
 
@@ -48,7 +60,45 @@ risk_per_whale <- 0.20/5 # 20% risk reduction / 5 whales = 4% risk reduction per
 # Equation
 # vote = 0.1196977 + 0.0007445*(risk) - 0.0010699*(bid) + 0.0158639*(NEP) + 0.0088282*(incomeone_percent) + 0.0027386*(incomepoor) + 0.0074891*(incomerich) + 0.0467922*(incomevery_rich) + 0.0099816*(agetofifty) - 0.0201190*(agetoforty) - 0.0162261*(agetosixty) + 0.0204401*(agetothirty)
 
-prob_vote <- 0.1196977 + 0.0007445*(risk_per_whale) - 0.0010699*(risk_per_whale) + 0.0158639*(risk_per_whale) + 0.0088282*(risk_per_whale) + 0.0027386*(risk_per_whale) + 0.0074891*(risk_per_whale) + 0.0467922*(risk_per_whale) + 0.0099816*(risk_per_whale) - 0.0201190*(risk_per_whale) - 0.0162261*(risk_per_whale) + 0.0204401*(risk_per_whale)
+prob_vote <- 0.1196977 + 0.0007445*(risk_per_whale) - 0.0010699*(bid) + 0.0158639*(NEP) + 0.0088282*(incomeone_percent) + 0.0027386*(incomepoor) + 0.0074891*(incomerich) + 0.0467922*(incomevery_rich) + 0.0099816*(agetofifty) - 0.0201190*(agetoforty) - 0.0162261*(agetosixty) + 0.0204401*(agetothirty)
+
+
+# Algebra
+# vote - vote + 0.0010699(bid) = 0.1196977 + 0.0007445(risk) - 0.0010699(bid) + 0.0158639(NEP) + 0.0088282(incomeone_percent) + 0.0027386(incomepoor) + 0.0074891(incomerich) + 0.0467922(incomevery_rich) + 0.0099816(agetofifty) - 0.0201190(agetoforty) - 0.0162261(agetosixty) + 0.0204401(agetothirty) - vote + 0.0010699(bid)
+
+# 0.0010699(bid) = 0.1196977 + 0.0007445(risk) - (vote) + 0.0158639(NEP) + 0.0088282(incomeone_percent) + 0.0027386(incomepoor) + 0.0074891(incomerich) + 0.0467922(incomevery_rich) + 0.0099816(agetofifty) - 0.0201190(agetoforty) - 0.0162261(agetosixty) + 0.0204401(agetothirty) 
+
+prob_bid  <- (0.1196977 + 0.0007445*(risk) - (vote) + 0.0158639*(NEP) + 0.0088282*(incomeone_percent) + 0.0027386*(incomepoor) + 0.0074891*(incomerich) + 0.0467922*(incomevery_rich) + 0.0099816*(agetofifty) - 0.0201190*(agetoforty) - 0.0162261*(agetosixty) + 0.0204401*(agetothirty))/0.0010699
+prob_bid
+
+# calculate for baseline risk X
+# calculate for baseline risk X +4%
+# turns out they cancel out
+
+
+### find number and conceptually how you found the number
+# how much would bid change with additional 4% risk reduction
+# look at code or last HW 
+
+# This equation should do it.
+baseline  = -4 * vote_lm$coefficients["risk"]/vote_lm$coefficients["bid"]
+baseline
+
+# Every 4% reduction in risk equates to a $2.78 increase in bid
+
+baseline_4  = -4 * vote_lm$coefficients["risk"]/vote_lm$coefficients["bid"] 
+
+
+
+```
+# Every 4% reduction in risk equates to a $2.78 increase in bid
+
+
+
+3. Pick three arbitrary respondents. For each of those respondents, estimate their WTP for a VSR program offering 60% risk reduction.
+
+
+```{r}
 
 #####################
 
@@ -62,27 +112,11 @@ mean_vote
 
 #####################
 
-# Algebra
-# vote - vote + 0.0010699(bid) = 0.1196977 + 0.0007445(risk) - 0.0010699(bid) + 0.0158639(NEP) + 0.0088282(incomeone_percent) + 0.0027386(incomepoor) + 0.0074891(incomerich) + 0.0467922(incomevery_rich) + 0.0099816(agetofifty) - 0.0201190(agetoforty) - 0.0162261(agetosixty) + 0.0204401(agetothirty) - vote + 0.0010699(bid)
-
-# 0.0010699(bid) = 0.1196977 + 0.0007445(risk) - 0.714(vote) + 0.0158639(NEP) + 0.0088282(incomeone_percent) + 0.0027386(incomepoor) + 0.0074891(incomerich) + 0.0467922(incomevery_rich) + 0.0099816(agetofifty) - 0.0201190(agetoforty) - 0.0162261(agetosixty) + 0.0204401(agetothirty) 
-
-prob_bid  <- (0.1196977 + 0.0007445*(risk_per_whale) - (0.5)*(risk_per_whale) + 0.0158639*(risk_per_whale) + 0.0088282*(risk_per_whale) + 0.0027386*(risk_per_whale) + 0.0074891*(risk_per_whale) + 0.0467922*(risk_per_whale) + 0.0099816*(risk_per_whale) - 0.0201190*(risk_per_whale) - 0.0162261*(risk_per_whale) + 0.0204401*(risk_per_whale))/0.0010699
-prob_bid
-
-# I don't even know what this is supposed to mean and it has nothing to do with what others got.
-# No idea. Not even the slightest.
+# Choose any 3 respondents. Plug in their values to the equation. 
 
 ```
 
-```{r}
-1/0.0010699
-```
 
-
-
-
-3. Pick three arbitrary respondents. For each of those respondents, estimate their WTP for a VSR program offering 60% risk reduction.
 
 
 4. Now repeat this process and estimate the mean WTP for a VSR program offering 60% risk reduction among Santa Barbara County households.
@@ -90,11 +124,26 @@ prob_bid
 
 5. If there are 150,000 households in Santa Barbara County, estimate the total benefit of a VSR program to these households.
 
+```{r}
+
+
+150000 * risk_per_whale # from Q.4
+```
 
 6. Based only on these benefits, do the benefits of the VSR program outweigh the costs?
 
 
 7. Suppose the price of a carbon credit is \$Z per ton, at what price Z* will the shipping industry decide to adopt the VSR for purely self-interested reasons? (Note: if ships voluntarily reduce speed, then the \$7 million cost (noted above) of implementing the VSR would be avoided)
+```{r}
+
+1000/20
+
+# mult by 150?
+# value of whale, shipping cost, carbon credit value
+# copare that with no program and voluntary enrollment
+
+
+```
 
 
 8. Now suppose the carbon credit price is exactly Z*, so all ships voluntarily reduce speed to achieve the 60% risk reduction. Approximately how many whales would be saved by this? What would be the social value of allowing ships to enter the carbon trading market?
