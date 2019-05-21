@@ -139,25 +139,26 @@ Respondent 1 is not willing to pay anything for the VSR program since their bid 
 
 ```{r}
 
-data_new<- mutate(whales, case_when(income == "poor" ~ 0,
-                                  income == "middle" ~ 1,
-                                  income == "rich" ~ 2,
-                                  income == "very_rich" ~ 3,
-                                  income == "one_percent" ~ 4,),
-                  case_when(age == "tothirty" ~ 30,
-                                  age == "toforty" ~ 40,
-                                  age == "tofifty" ~ 50,
-                                  age == "tosixty" ~ 6))
+data_new<- (whales) %>% 
+  mutate(income_value = case_when(income == "poor" ~ 0,
+                                 income == "middle" ~ 1,
+                                 income == "rich" ~ 2,
+                                 income == "very_rich" ~ 3,
+                                 income == "one_percent" ~ 4),
+         age_value = case_when(age == "tothirty" ~ 30,
+                              age == "toforty" ~ 40,
+                              age == "tofifty" ~ 50,
+                              age == "tosixty" ~ 60))
 data_new
-names(data_new)<- c("risk", "bid", "vote", "nep", "income", "age", "income_num", "age_num")
+
   
-  
-data_table<- data_new %>%
-  summarise(
-    mean_nep = mean(nep),
-    mode_age = mode(age_num),
-    mode_income = mode(income_num)
+data_table <- data_new %>%
+  summarize(
+    mean_nep = mean(NEP),
+    mode_age = mode(age_value),
+    mode_income = mode(income_value)
   )
+data_table # Not certain this does what we want it to.
 
 ```
 
