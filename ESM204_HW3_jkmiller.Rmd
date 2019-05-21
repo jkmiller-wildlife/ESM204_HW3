@@ -140,11 +140,11 @@ Respondent 1 is not willing to pay anything for the VSR program since their bid 
 ```{r}
 
 data_new<- (whales) %>% 
-  mutate(income_value = case_when(income == "poor" ~ 0,
-                                 income == "middle" ~ 1,
-                                 income == "rich" ~ 2,
-                                 income == "very_rich" ~ 3,
-                                 income == "one_percent" ~ 4),
+  mutate(income_value = case_when(income == "poor" ~ 1,
+                                 income == "middle" ~ 2,
+                                 income == "rich" ~ 3,
+                                 income == "very_rich" ~ 4,
+                                 income == "one_percent" ~ 5),
          age_value = case_when(age == "tothirty" ~ 1,
                               age == "toforty" ~ 2,
                               age == "tofifty" ~ 3,
@@ -166,7 +166,7 @@ data_table <- data_new %>%
     mean_age = mean(age_value),    
     median_age = median(age_value)
   )
-data_table # Not certain this does what we want it to.
+data_table 
 
 ```
 
@@ -187,14 +187,27 @@ mean_bid
   #        age == "tofifty" ~ 50,
    #       age == "tosixty" ~ 60,
     #      age == "oversixty" ~ 70)
+# and income_value =
+#case_when(income == "poor" ~ 0,
+ #         income == "middle" ~ 1,
+  #        income == "rich" ~ 2,
+   #       income == "very_rich" ~ 3,
+    #      income == "one_percent" ~ 4)
 
 
-# mean_bid = 161.6301 when risk = 60 and categorical age variables are as follows: 
+# mean_bid = 161.6301 when risk = 60, income values are the same as above, and categorical age variables are as follows: 
 #case_when(age == "tothirty" ~ 1,
  #         age == "toforty" ~ 2,
   #        age == "tofifty" ~ 3,
    #       age == "tosixty" ~ 4,
     #      age == "oversixty" ~ 5)
+
+# Having income$poor = 0 doesn't make sense. Change it to 1. Adjust dummy variables by 1.
+
+# Now mean_bid = 223.1762
+
+# After going through this little exercise I'm not sure this is correct or necessary anyway.
+# Answer should be around 50-60 for both Q3 and Q4.
 
 ```
 
