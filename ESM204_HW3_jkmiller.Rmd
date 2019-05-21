@@ -19,7 +19,7 @@ whales <- read_csv("HW3Data.csv")
 
 
 1. Create a linear probability model that predicts a respondent’s probability of voting ‘yes’ on the ballot based on their age, income, NEP score, the risk reduction offered by the program, and the cost of the program to that respondent. Show the model and interpret the regression coefficients.
-```{r}
+```{r, include = FALSE}
 # Regression - linear probability model
 vote_lm <- lm(vote ~ risk + bid + NEP + income + age, data = whales)
 vote_lm
@@ -46,7 +46,7 @@ vote_lm$coefficients["risk"]
 
 ```{r, results ='asis'}
 # stargazer for the results
-table_vote_lm <- stargazer(vote_lm)
+table_vote_lm <- stargazer(vote_lm, type = 'html')
 
 # Not sure why it doesn't work; seems like the right code? 
 ```
@@ -65,7 +65,7 @@ risk_per_whale <- 0.20/5 # 20% risk reduction / 5 whales = 4% risk reduction per
 # Equation
 # vote = 0.1196977 + 0.0007445*(risk) - 0.0010699*(bid) + 0.0158639*(NEP) + 0.0088282*(incomeone_percent) + 0.0027386*(incomepoor) + 0.0074891*(incomerich) + 0.0467922*(incomevery_rich) + 0.0099816*(agetofifty) - 0.0201190*(agetoforty) - 0.0162261*(agetosixty) + 0.0204401*(agetothirty)
 
-prob_vote <- 0.1196977 + 0.0007445*(risk_per_whale) - 0.0010699*(bid) + 0.0158639*(NEP) + 0.0088282*(incomeone_percent) + 0.0027386*(incomepoor) + 0.0074891*(incomerich) + 0.0467922*(incomevery_rich) + 0.0099816*(agetofifty) - 0.0201190*(agetoforty) - 0.0162261*(agetosixty) + 0.0204401*(agetothirty)
+#prob_vote <- 0.1196977 + 0.0007445*(risk_per_whale) - 0.0010699*(bid) + 0.0158639*(NEP) + 0.0088282*(incomeone_percent) + 0.0027386*(incomepoor) + 0.0074891*(incomerich) + 0.0467922*(incomevery_rich) + 0.0099816*(agetofifty) - 0.0201190*(agetoforty) - 0.0162261*(agetosixty) + 0.0204401*(agetothirty)
 
 
 # Algebra
@@ -73,8 +73,8 @@ prob_vote <- 0.1196977 + 0.0007445*(risk_per_whale) - 0.0010699*(bid) + 0.015863
 
 # 0.0010699(bid) = 0.1196977 + 0.0007445(risk) - (vote) + 0.0158639(NEP) + 0.0088282(incomeone_percent) + 0.0027386(incomepoor) + 0.0074891(incomerich) + 0.0467922(incomevery_rich) + 0.0099816(agetofifty) - 0.0201190(agetoforty) - 0.0162261(agetosixty) + 0.0204401(agetothirty) 
 
-prob_bid  <- (0.1196977 + 0.0007445*(risk) - (vote) + 0.0158639*(NEP) + 0.0088282*(incomeone_percent) + 0.0027386*(incomepoor) + 0.0074891*(incomerich) + 0.0467922*(incomevery_rich) + 0.0099816*(agetofifty) - 0.0201190*(agetoforty) - 0.0162261*(agetosixty) + 0.0204401*(agetothirty))/0.0010699
-prob_bid
+#prob_bid  <- (0.1196977 + 0.0007445*(risk) - (vote) + 0.0158639*(NEP) + 0.0088282*(incomeone_percent) + 0.0027386*(incomepoor) + 0.0074891*(incomerich) + 0.0467922*(incomevery_rich) + 0.0099816*(agetofifty) - 0.0201190*(agetoforty) - 0.0162261*(agetosixty) + 0.0204401*(agetothirty))/0.0010699
+#prob_bid
 
 # calculate for baseline risk X
 # calculate for baseline risk X +4%
