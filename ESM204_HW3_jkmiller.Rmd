@@ -138,7 +138,7 @@ Respondent 1 is not willing to pay anything for the VSR program since their bid 
 4. Now repeat this process and estimate the mean WTP for a VSR program offering 60% risk reduction among Santa Barbara County households.
 
 ```{r}
-
+# Create summy variables for income and age categories
 data_new<- (whales) %>% 
   mutate(income_value = case_when(income == "poor" ~ 1,
                                  income == "middle" ~ 2,
@@ -149,10 +149,12 @@ data_new<- (whales) %>%
                               age == "toforty" ~ 2,
                               age == "tofifty" ~ 3,
                               age == "tosixty" ~ 4,
-                              age == "oversixty" ~ 5))
+                              age == "oversixty" ~ 5)
+         )
 data_new
 
-  
+
+# Summarize data. Mean of continuous variables. Median or mode of categorical dummy variables.
 data_table <- data_new %>%
   summarize(
     mean_risk = mean(risk),
@@ -218,7 +220,7 @@ mean_bid
 ```{r}
 
 
-150000 * risk_per_whale # from Q.4
+150000 * # answer from Q.4
 ```
 
 6. Based only on these benefits, do the benefits of the VSR program outweigh the costs?
