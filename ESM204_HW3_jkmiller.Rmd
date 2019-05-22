@@ -185,7 +185,7 @@ data_table
 
 four_mean  <- (0.1196977 + 0.0007445*(60) - (0.714) + 0.0158639*(38.366) + 0.0088282*(0) + 0.0027386*(0) + 0.0074891*(0) + 0.0467922*(0) + 0.0099816*(0) - 0.0201190*(0) - 0.0162261*(0) + 0.0204401*(1))/0.0010699
 
-# Not exactly sure what is going on here, was just trying to make sense of what Tyler did. I feel like I need someone to talk to about this and there is no one at Bren :( 
+# Not exactly sure what is going on here, was just trying to make sense and there is no one at Bren :( 
 
 ```
 
