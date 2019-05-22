@@ -1,6 +1,6 @@
 ---
 title: "ESM 204 - Assignment 3"
-author: "Jamie Miller"
+author: "Jamie Miller & Alex Ivina"
 date: "May 18, 2019"
 output: html_document
 ---
@@ -122,7 +122,7 @@ mean_vote
 
 prob_bid_1  <- (0.1196977 + 0.0007445*(60) - (0.714) + 0.0158639*(13) + 0.0088282*(1) + 0.0027386*(0) + 0.0074891*(0) + 0.0467922*(0) + 0.0099816*(1) - 0.0201190*(0) - 0.0162261*(0) + 0.0204401*(0))/0.0010699
 
-#prob_bid_1 = -303.38517618469
+#prob_bid_1 = -303.38517618469 <- person that clearly doesn't like whales
 
 prob_bid_2  <- (0.1196977 + 0.0007445*(60) - (0.714) + 0.0158639*(37) + 0.0088282*(0) + 0.0027386*(1) + 0.0074891*(0) + 0.0467922*(0) + 0.0099816*(0) - 0.0201190*(0) - 0.0162261*(0) + 0.0204401*(1))/0.0010699
 
@@ -180,10 +180,12 @@ data_table
 
 ```{r}
 # mean_NEP: 38.366
-# most_common_age: 30
+# most_common_age: agetofifty (I am not 100% sure why it is this)
 # most_common_income: medium 
 
-four_mean  <- (0.1196977 + 0.0007445*(60) - (0.714) + 0.0158639*(38.366) + 0.0088282*(0) + 0.0027386*(0) + 0.0074891*(0) + 0.0467922*(0) + 0.0099816*(0) - 0.0201190*(0) - 0.0162261*(0) + 0.0204401*(1))/0.0010699
+four_mean  <- (0.1196977 + 0.0007445*(60) - (0.714) + 0.0158639*(38.366) + 0.0088282*(0) + 0.0027386*(0) + 0.0074891*(0) + 0.0467922*(0) + 0.0099816*(1) - 0.0201190*(0) - 0.0162261*(0) + 0.0204401*(0))/0.0010699
+
+# WTP: 64.4767617534349
 
 # Not exactly sure what is going on here, was just trying to make sense and there is no one at Bren :( 
 
@@ -237,14 +239,25 @@ mean_bid
 
 ```{r}
 
+# Risk = 60%  
+# Cost = 7 million 
+# 150000 * # answer from Q.4
 
-150000 * # answer from Q.4
+benefit <- mean_bid * 150000 # Jamie's version
+benefit_1 <- four_mean * 150000 # Alex's version
+cost <- 7000000
+
+total_benefit <- benefit_1 - cost
+total_benefit
+# total benefit: 2,671,514 (does this number seem right or too low? From what people said this maybe should be 11.5?)
+
 ```
 
 6. Based only on these benefits, do the benefits of the VSR program outweigh the costs?
 
 ```{r}
 
+# Depends if the benefit is $2.6 mil or $11.6 
 
 ```
 
@@ -263,4 +276,10 @@ mean_bid
 
 
 8. Now suppose the carbon credit price is exactly Z*, so all ships voluntarily reduce speed to achieve the 60% risk reduction. Approximately how many whales would be saved by this? What would be the social value of allowing ships to enter the carbon trading market?
+
+```{r}
+
+
+
+```
 
