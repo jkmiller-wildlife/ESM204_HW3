@@ -172,6 +172,11 @@ data_table<- data_new %>%
 
 6. Based only on these benefits, do the benefits of the VSR program outweigh the costs?
 
+```{r}
+
+
+```
+
 
 7. Suppose the price of a carbon credit is \$Z per ton, at what price Z* will the shipping industry decide to adopt the VSR for purely self-interested reasons? (Note: if ships voluntarily reduce speed, then the \$7 million cost (noted above) of implementing the VSR would be avoided)
 ```{r}
