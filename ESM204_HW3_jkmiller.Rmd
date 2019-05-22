@@ -138,28 +138,81 @@ Respondent 1 is not willing to pay anything for the VSR program since their bid 
 4. Now repeat this process and estimate the mean WTP for a VSR program offering 60% risk reduction among Santa Barbara County households.
 
 ```{r}
-
-data_new<- mutate(whales, case_when(income == "poor" ~ 0,
-                                  income == "middle" ~ 1,
-                                  income == "rich" ~ 2,
-                                  income == "very_rich" ~ 3,
-                                  income == "one_percent" ~ 4,),
-                  case_when(age == "tothirty" ~ 30,
-                                  age == "toforty" ~ 40,
-                                  age == "tofifty" ~ 50,
-                                  age == "tosixty" ~ 6))
+# Create summy variables for income and age categories
+data_new<- (whales) %>% 
+  mutate(income_value = case_when(income == "poor" ~ 1,
+                                 income == "middle" ~ 2,
+                                 income == "rich" ~ 3,
+                                 income == "very_rich" ~ 4,
+                                 income == "one_percent" ~ 5),
+         age_value = case_when(age == "tothirty" ~ 1,
+                              age == "toforty" ~ 2,
+                              age == "tofifty" ~ 3,
+                              age == "tosixty" ~ 4,
+                              age == "oversixty" ~ 5)
+         )
 data_new
-names(data_new)<- c("risk", "bid", "vote", "nep", "income", "age", "income_num", "age_num")
-  
-  
-data_table<- data_new %>%
-  summarise(
-    mean_nep = mean(nep),
-    mode_age = mode(age_num),
-    mode_income = mode(income_num)
+
+
+# Summarize data. Mean of continuous variables. Median or mode of categorical dummy variables.
+data_table <- data_new %>%
+  summarize(
+    mean_risk = mean(risk),
+    mean_bid = mean(bid),
+    mean_vote = mean(vote),
+    mean_nep = mean(NEP),
+    mode_income = mode(income_value),
+    mean_income = mean(income_value),
+    median_income = median(income_value),
+    mode_age = mode(age_value),
+    mean_age = mean(age_value),    
+    median_age = median(age_value)
   )
+data_table 
 
 ```
+
+```{r}
+
+# Used values from summarized data table. Mean of all continuous variables. Used median of categorical variables. Mode did not work.
+# Not 100% certain assigning age_values as actual ages gets us where we want to go. Try again with dummy variables 1-5
+
+mean_bid  <- (0.1196977 + 0.0007445*(60) - (data_table$mean_vote) + 0.0158639*(data_table$mean_nep) + # Continuous variables
+                0.0088282*(data_table$median_income) + 0.0027386*(data_table$median_income) + 0.0074891*(data_table$median_income) + 0.0467922*(data_table$median_income) +  # Income categories
+                0.0099816*(data_table$median_age) - 0.0201190*(data_table$median_age) - 0.0162261*(data_table$median_age) + 0.0204401*(data_table$median_age)   # Age categories
+              )/0.0010699
+mean_bid
+
+# mean_bid = -106.2354 when risk = data_table$mean_risk and categorical age variables are as follows: 
+#case_when(age == "tothirty" ~ 30,
+ #         age == "toforty" ~ 40,
+  #        age == "tofifty" ~ 50,
+   #       age == "tosixty" ~ 60,
+    #      age == "oversixty" ~ 70)
+# and income_value =
+#case_when(income == "poor" ~ 0,
+ #         income == "middle" ~ 1,
+  #        income == "rich" ~ 2,
+   #       income == "very_rich" ~ 3,
+    #      income == "one_percent" ~ 4)
+
+
+# mean_bid = 161.6301 when risk = 60, income values are the same as above, and categorical age variables are as follows: 
+#case_when(age == "tothirty" ~ 1,
+ #         age == "toforty" ~ 2,
+  #        age == "tofifty" ~ 3,
+   #       age == "tosixty" ~ 4,
+    #      age == "oversixty" ~ 5)
+
+# Having income$poor = 0 doesn't make sense. Change it to 1. Adjust dummy variables by 1.
+
+# Now mean_bid = 223.1762
+
+# After going through this little exercise I'm not sure this is correct or necessary anyway.
+# Answer should be around 50-60 for both Q3 and Q4.
+
+```
+
 
 
 5. If there are 150,000 households in Santa Barbara County, estimate the total benefit of a VSR program to these households.
@@ -167,7 +220,7 @@ data_table<- data_new %>%
 ```{r}
 
 
-150000 * risk_per_whale # from Q.4
+150000 * # answer from Q.4
 ```
 
 6. Based only on these benefits, do the benefits of the VSR program outweigh the costs?
