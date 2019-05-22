@@ -19,6 +19,7 @@ whales <- read_csv("HW3Data.csv")
 
 
 1. Create a linear probability model that predicts a respondent’s probability of voting ‘yes’ on the ballot based on their age, income, NEP score, the risk reduction offered by the program, and the cost of the program to that respondent. Show the model and interpret the regression coefficients.
+
 ```{r, include = FALSE}
 # Regression - linear probability model
 vote_lm <- lm(vote ~ risk + bid + NEP + income + age, data = whales)
@@ -138,6 +139,7 @@ Respondent 1 is not willing to pay anything for the VSR program since their bid 
 4. Now repeat this process and estimate the mean WTP for a VSR program offering 60% risk reduction among Santa Barbara County households.
 
 ```{r}
+
 # Create summy variables for income and age categories
 data_new<- (whales) %>% 
   mutate(income_value = case_when(income == "poor" ~ 1,
@@ -151,8 +153,8 @@ data_new<- (whales) %>%
                               age == "tosixty" ~ 4,
                               age == "oversixty" ~ 5)
          )
-data_new
 
+data_new
 
 # Summarize data. Mean of continuous variables. Median or mode of categorical dummy variables.
 data_table <- data_new %>%
@@ -168,9 +170,25 @@ data_table <- data_new %>%
     mean_age = mean(age_value),    
     median_age = median(age_value)
   )
+
 data_table 
 
+
+
+
 ```
+
+```{r}
+# mean_NEP: 38.366
+# most_common_age: 30
+# most_common_income: medium 
+
+four_mean  <- (0.1196977 + 0.0007445*(60) - (0.714) + 0.0158639*(38.366) + 0.0088282*(0) + 0.0027386*(0) + 0.0074891*(0) + 0.0467922*(0) + 0.0099816*(0) - 0.0201190*(0) - 0.0162261*(0) + 0.0204401*(1))/0.0010699
+
+# Not exactly sure what is going on here, was just trying to make sense of what Tyler did. I feel like I need someone to talk to about this and there is no one at Bren :( 
+
+```
+
 
 ```{r}
 
