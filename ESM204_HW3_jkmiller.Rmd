@@ -288,8 +288,8 @@ benefit_2
 
 cost <- 7000000
 
-total_benefit <- benefit_1 - cost
-#total_benefit
+total_benefit <- benefit_2 - cost
+#total_benefit: 32,674,318.2633891
 # total benefit: 2,671,514 (does this number seem right or too low? From what people said this maybe should be 11.5?)
 
 # Either way the benefit of the program is greater than the $7 million cost of the VSR program
