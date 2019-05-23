@@ -211,7 +211,9 @@ four_mean_5
 
 
 ```{r}
-# calculared with median NEP, vote = 0.5, risk = 60, mode of income (one_percent) and age(tothirtry)
+###### USE THIS CODE CHUNK FOR Q4
+
+# calculated with median NEP, vote = 0.5, risk = 60, mode of income (one_percent) and age(tothirtry)
 
 #bid  <- (0.1196977 + 0.0007445*(risk) - (vote) + 0.0158639*(NEP) + 0.0088282*(incomeone_percent) + 0.0027386*(incomepoor) + 0.0074891*(incomerich) + 0.0467922*(incomevery_rich) + 0.0099816*(agetofifty) - 0.0201190*(agetoforty) - 0.0162261*(agetosixty) + 0.0204401*(agetothirty))/0.0010699
 
@@ -219,8 +221,10 @@ four_mean_5
 bid_median_5  <- (0.1196977 + 0.0007445*(60) - (0.5) + 0.0158639*(data_table$median_nep) + 0.0088282*(1) + 0.0027386*(0) + 0.0074891*(0) + 0.0467922*(0) + 0.0099816*(0) - 0.0201190*(0) - 0.0162261*(0) + 0.0204401*(1))/0.0010699
 bid_median_5
 
-# w/ median $291.92
-# w/ mean $282.52
+# w/ median NEP $291.92 data_table$median_nep
+# w/ mean NEP $282.52 data_table$mean_nep
+# w/ mode NEP = 40 $306.75
+
 
 ```
 
