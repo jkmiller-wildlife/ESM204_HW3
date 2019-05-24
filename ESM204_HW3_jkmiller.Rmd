@@ -74,8 +74,8 @@ risk_per_whale <- 0.20/5 # 20% risk reduction / 5 whales = 4% risk reduction per
 
 # 0.0010699(bid) = 0.1196977 + 0.0007445(risk) - (vote) + 0.0158639(NEP) + 0.0088282(incomeone_percent) + 0.0027386(incomepoor) + 0.0074891(incomerich) + 0.0467922(incomevery_rich) + 0.0099816(agetofifty) - 0.0201190(agetoforty) - 0.0162261(agetosixty) + 0.0204401(agetothirty) 
 
-#prob_bid  <- (0.1196977 + 0.0007445*(risk) - (vote) + 0.0158639*(NEP) + 0.0088282*(incomeone_percent) + 0.0027386*(incomepoor) + 0.0074891*(incomerich) + 0.0467922*(incomevery_rich) + 0.0099816*(agetofifty) - 0.0201190*(agetoforty) - 0.0162261*(agetosixty) + 0.0204401*(agetothirty))/0.0010699
-#prob_bid
+# bid  <- (0.1196977 + 0.0007445*(risk) - (vote) + 0.0158639*(NEP) + 0.0088282*(incomeone_percent) + 0.0027386*(incomepoor) + 0.0074891*(incomerich) + 0.0467922*(incomevery_rich) + 0.0099816*(agetofifty) - 0.0201190*(agetoforty) - 0.0162261*(agetosixty) + 0.0204401*(agetothirty))/0.0010699
+# bid
 
 # calculate for baseline risk X
 # calculate for baseline risk X +4%
@@ -91,9 +91,6 @@ baseline  = -4 * vote_lm$coefficients["risk"]/vote_lm$coefficients["bid"]
 baseline
 
 # Every 4% reduction in risk equates to a $2.78 increase in bid
-
-baseline_4  = -4 * vote_lm$coefficients["risk"]/vote_lm$coefficients["bid"] 
-
 
 
 ```
@@ -120,17 +117,17 @@ mean_vote
 
 # Choose any 3 respondents. Plug in their values to the equation. 
 
-prob_bid_1  <- (0.1196977 + 0.0007445*(60) - (0.714) + 0.0158639*(13) + 0.0088282*(1) + 0.0027386*(0) + 0.0074891*(0) + 0.0467922*(0) + 0.0099816*(1) - 0.0201190*(0) - 0.0162261*(0) + 0.0204401*(0))/0.0010699
+prob_bid_1  <- (0.1196977 + 0.0007445*(60) - (0.5) + 0.0158639*(13) + 0.0088282*(1) + 0.0027386*(0) + 0.0074891*(0) + 0.0467922*(0) + 0.0099816*(1) - 0.0201190*(0) - 0.0162261*(0) + 0.0204401*(0))/0.0010699
+prob_bid_1
+#prob_bid_1 =  -103.3665 <- person that clearly doesn't like whales
 
-#prob_bid_1 = -303.38517618469 <- person that clearly doesn't like whales
+prob_bid_2  <- (0.1196977 + 0.0007445*(60) - (0.5) + 0.0158639*(37) + 0.0088282*(0) + 0.0027386*(1) + 0.0074891*(0) + 0.0467922*(0) + 0.0099816*(0) - 0.0201190*(0) - 0.0162261*(0) + 0.0204401*(1))/0.0010699
+prob_bid_2
+#prob_bid_2 = 256.576
 
-prob_bid_2  <- (0.1196977 + 0.0007445*(60) - (0.714) + 0.0158639*(37) + 0.0088282*(0) + 0.0027386*(1) + 0.0074891*(0) + 0.0467922*(0) + 0.0099816*(0) - 0.0201190*(0) - 0.0162261*(0) + 0.0204401*(1))/0.0010699
-
-#prob_bid_2 = 56.5573418076456
-
-prob_bid_3  <- (0.1196977 + 0.0007445*(60) - (0.714) + 0.0158639*(38) + 0.0088282*(0) + 0.0027386*(0) + 0.0074891*(0) + 0.0467922*(1) + 0.0099816*(0) - 0.0201190*(0) - 0.0162261*(1) + 0.0204401*(0))/0.0010699
-
-#prob_bid_3 = 78.2895597719414
+prob_bid_3  <- (0.1196977 + 0.0007445*(60) - (0.5) + 0.0158639*(38) + 0.0088282*(0) + 0.0027386*(0) + 0.0074891*(0) + 0.0467922*(1) + 0.0099816*(0) - 0.0201190*(0) - 0.0162261*(1) + 0.0204401*(0))/0.0010699
+prob_bid_3
+#prob_bid_3 = 278.3083
 ```
 Respondent 1 is not willing to pay anything for the VSR program since their bid value is negative \$303. Respondent 2 is willing to pay \$56.56 for a VSR program that offers a 60% reduction in whlae strikes, and Respondent 3 is willing to pay \$78.29.
 
@@ -138,7 +135,7 @@ Respondent 1 is not willing to pay anything for the VSR program since their bid 
 
 4. Now repeat this process and estimate the mean WTP for a VSR program offering 60% risk reduction among Santa Barbara County households.
 
-```{r}
+```{r, include = FALSE}
 
 # Create summy variables for income and age categories
 data_new<- (whales) %>% 
@@ -156,6 +153,9 @@ data_new<- (whales) %>%
 
 data_new
 
+```
+
+```{r}
 # Summarize data. Mean of continuous variables. Median or mode of categorical dummy variables.
 data_table <- data_new %>%
   summarize(
